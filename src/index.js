@@ -3,8 +3,52 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createStore, combineReducers } from 'redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+
+function todos(state = [], action) {
+    switch(action.type) {
+        case 'ADD_TODO':
+            return [...state, action.todo];
+        default:
+            return state;
+    }
+}
+
+function goals(state = [], action) {
+    switch(action.type) {
+        case 'ADD_GOAL':
+            return [...state, action.goal]
+        default:
+            return state;
+    }
+}
+
+
+const store = createStore(combineReducers({
+    todos,
+    goals
+}));
+
+store.subscribe(() => {
+    console.log(store.getState());
+})
+
+
+store.dispatch({
+    type: 'ADD_GOAL',
+    goal: {
+        id: 0,
+        name: 'Learn Redux',
+        complete: false
+    }
+})
+
+
+
+
+ReactDOM.render(<App store={store}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
