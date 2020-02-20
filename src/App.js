@@ -4,6 +4,7 @@ import './App.css';
 import Login from './components/Login';
 import Leaderboard from './components/Leaderboard';
 import Newquestion from './components/Newquestion';
+import Todo from './components/Todo';
 
 import {
 	BrowserRouter as Router,
@@ -23,22 +24,26 @@ function App(props) {
 				</button>
 				<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div className="navbar-nav">
-					<Link className="nav-item nav-link active" to="/">Home</Link>
-					<Link className="nav-item nav-link" to="/newquestion">New Question</Link>
-					<Link className="nav-item nav-link" to="/leaderboard">Leader Board</Link>
+						<Link className="nav-item nav-link active" to="/">Home</Link>
+						<Link className="nav-item nav-link" to="/newquestion">New Question</Link>
+						<Link className="nav-item nav-link" to="/leaderboard">Leader Board</Link>
+						<Link className="nav-item nav-link" to="/todos">Todo App</Link>
 					
 					</div>
 				</div>
 			</nav>
 			<Switch>
-					<Route path="/newquestion">
+					<Route exact path="/newquestion">
 						<Newquestion />
 					</Route>
-					<Route path="/leaderboard">
+					<Route exact path="/leaderboard">
 						<Leaderboard />
 					</Route>
-					<Route path="/">
+					<Route exact path="/">
 						<Login />
+					</Route>
+					<Route exact path="/todos">
+						<Todo store={props.store} />
 					</Route>
 			</Switch>
 		</div>
