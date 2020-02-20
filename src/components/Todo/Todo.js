@@ -9,6 +9,7 @@ class Todo extends React.Component {
         this.addGoal = this.addGoal.bind(this);
         this.removeTodo = this.removeTodo.bind(this);
         this.removeGoal = this.removeGoal.bind(this);
+        this.handleRemoveTodo = this.handleRemoveTodo.bind(this);
     }
 
     componentDidMount() {
@@ -46,17 +47,45 @@ class Todo extends React.Component {
 
     }
 
-    removeTodo(e, id) {
-        const {dispatch} = this.props.store;
-        e.preventDefault();
-        dispatch(removeTodoAction({id}));
+    handleRemoveTodo(todo) {
+        return (dispatch) => {
+            dispatch(removeTodoAction(todo.id));
+
+            return window.API.deleteTodo(todo.id)
+            .catch(()=> {
+                dispatch(addTodoAction({name: todo.name}));
+                alert("An error has been occured. Try again!")
+            })
+        }
     }
 
-    removeGoal(e, id) {
+    removeTodo(e, todo) {
         const {dispatch} = this.props.store;
         e.preventDefault();
 
-        dispatch(removeGoalAction(id));
+        dispatch(this.handleRemoveTodo(todo));
+
+        // dispatch(removeTodoAction(todo.id));
+
+        // return window.API.deleteTodo(todo.id)
+        // .catch(() => {
+        //     dispatch(addTodoAction({name: todo.name}));
+        //     alert("An error has been occured. Try again!")
+        // })
+        
+    }
+
+    removeGoal(e, goal) {
+        const {dispatch} = this.props.store;
+        e.preventDefault();
+
+        dispatch(removeGoalAction(goal.id));
+
+        return window.API.deleteGoal()
+        .catch(() => {
+            dispatch(addGoalAction({name: goal.name}));
+            alert("An error has occured. Please try again!");
+        })
     }
 
     render() {
@@ -77,7 +106,7 @@ class Todo extends React.Component {
                     
                     <ul id='todos'>Todo list
                         {todos.map((todo) => (
-                            <li key={todo.id}>{todo.name} <button onClick={(e) => {this.removeTodo(e, todo.id)}}>Remove</button></li>
+                            <li key={todo.id}>{todo.name} <button onClick={(e) => {this.removeTodo(e, todo)}}>Remove</button></li>
                         ))}
                     </ul>
                 </div>
@@ -89,7 +118,7 @@ class Todo extends React.Component {
                     
                     <ul>Goal list
                     {goals.map((goal) => (
-                            <li key={goal.id}>{goal.name}<button id={goal.id} onClick={(e) => {this.removeGoal(e, goal.id)}}>Remove</button></li>
+                            <li key={goal.id}>{goal.name}<button id={goal.id} onClick={(e) => {this.removeGoal(e, goal)}}>Remove</button></li>
                         ))}
                     </ul>
                 </div>

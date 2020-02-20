@@ -22,7 +22,7 @@ export const addTodoAction = ({name} = {}) => {
     }
 }
 
-export const removeTodoAction = ({id} = {}) => {
+export const removeTodoAction = (id) => {
     console.log(id);
     return {
         type: "REMOVE_TODO",

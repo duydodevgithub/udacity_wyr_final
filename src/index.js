@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-
+import thunk from "redux-thunk";
 
 
 function todos(state = [], action) {
@@ -73,12 +73,22 @@ const logger = (store) => (next) => (action) => {
     return result;
 }
 
+// const thunk = (store) => (next) => (action) => {
+//     if(typeof action === "function") {
+//         return action(store.dispatch);
+//     }
+
+//     return next(action);
+// }
+
+const Context = React.createContext();
+
 
 const store = createStore(combineReducers({
     todos,
     goals,
     loading
-}), applyMiddleware(checker, logger));
+}), applyMiddleware(thunk,checker, logger));
 
 // store.subscribe(() => {
 //     console.log(store.getState());
