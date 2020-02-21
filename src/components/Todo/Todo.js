@@ -89,7 +89,6 @@ class Item extends React.Component {
 }
 
 
-
 const ConnectedItems = connect((state) => ({
     todos: state.todos
   }))(Item)
@@ -118,7 +117,11 @@ class Todo extends React.Component {
         // console.log(todos);
 
         if(this.props.loading === true) {
-            return <h3>Loading...</h3>
+            return (
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
         }
 
         return (

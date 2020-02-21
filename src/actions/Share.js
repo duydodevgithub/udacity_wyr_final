@@ -7,4 +7,11 @@ export const receiveDataAction = (todos, goals) => {
     }
 }
 
+export const loadUserList = (users) => {
+    return {
+        type: "RECEIVE_USERS",
+        users
+    }
+}
+
 

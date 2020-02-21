@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 // import Todo from './components/Todo';
-import Login from './components/Login';
+import ConnectLogIn from './components/Login';
 import Leaderboard from './components/Leaderboard';
 import Newquestion from './components/Newquestion';
 import Todo from './components/Todo';
@@ -45,7 +45,7 @@ function App() {
 							<Leaderboard />
 						</Route>
 						<Route exact path="/">
-							<Login />
+							<ConnectLogIn />
 						</Route>
 						<Route exact path="/todoapp">
 							<Todo />
