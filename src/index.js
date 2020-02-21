@@ -45,7 +45,7 @@ export const Context = React.createContext();
 // }
 
 const ConnectedTodo = connect((store) => ({
-    loadings: store.loading
+    loading: store.loading
 }))(Todo);
 
 const store = createStore(combineReducers({
