@@ -1,5 +1,6 @@
 import React from 'react';
-import {addTodoAction, addGoalAction, removeTodoAction, removeGoalAction, receiveDataAction} from '../../actions/TodoAction';
+import {handleAddGoal, handleRemoveGoal, handleRemoveTodo, handleAddTodo} from '../../actions/TodoAction';
+import {receiveDataAction} from '../../actions/Share';
 import { connect } from 'react-redux';
 
 
@@ -11,11 +12,10 @@ class Goals extends React.Component {
     }
 
     addGoal() {
-
         const {dispatch} = this.props;
         const elem = document.getElementById("goal");
 
-        dispatch(addGoalAction({name: elem.value}));
+        dispatch(handleAddGoal(elem.value));
 
         elem.value = "";
 
@@ -25,13 +25,7 @@ class Goals extends React.Component {
         const {dispatch} = this.props;
         e.preventDefault();
 
-        dispatch(removeGoalAction(goal.id));
-
-        return window.API.deleteGoal()
-        .catch(() => {
-            dispatch(addGoalAction({name: goal.name}));
-            alert("An error has occured. Please try again!");
-        })
+        dispatch(handleRemoveGoal(goal));
     }
 
     render() {
@@ -64,38 +58,16 @@ class Item extends React.Component {
         const {dispatch} = this.props;
         const elem = document.getElementById("todo");
 
-        dispatch(addTodoAction({name: elem.value}));
-
+        dispatch(handleAddTodo(elem.value));
         elem.value = "";
     }
 
-  
-
-    handleRemoveTodo(todo) {
-        return (dispatch) => {
-            dispatch(removeTodoAction(todo.id));
-            return window.API.deleteTodo(todo.id)
-            .catch(()=> {
-                dispatch(addTodoAction({name: todo.name}));
-                alert("An error has been occured. Try again!")
-            })
-        }
-    }
 
     removeTodo(e, todo) {
         const {dispatch} = this.props;
         e.preventDefault();
 
-        dispatch(this.handleRemoveTodo(todo));
-
-        // dispatch(removeTodoAction(todo.id));
-
-        // return window.API.deleteTodo(todo.id)
-        // .catch(() => {
-        //     dispatch(addTodoAction({name: todo.name}));
-        //     alert("An error has been occured. Try again!")
-        // })
-        
+        dispatch(handleRemoveTodo(todo)); 
     }
 
     render() {
@@ -116,33 +88,7 @@ class Item extends React.Component {
     }
 }
 
-// class ConnectedGoals extends React.Component {
-//     render() {
-//         return (
-//             <Context.Consumer>
-//                 {(store) => {
-//                     const {goals} = store.getState();
 
-//                     return <Goals goals={goals} dispatch={store.dispatch}/>
-//                 }}
-//             </Context.Consumer>
-//         )
-//     }
-// }
-
-// class ConnectedItems extends React.Component {
-//     render() {
-//         return (
-//             <Context.Consumer>
-//                 {(store) => {
-//                     const {todos} = store.getState();
-
-//                     return <Item todos={todos} dispatch={store.dispatch}/>
-//                 }}
-//             </Context.Consumer>
-//         )
-//     }
-// }
 
 const ConnectedItems = connect((state) => ({
     todos: state.todos
@@ -185,4 +131,8 @@ class Todo extends React.Component {
     }
 }
 
-export default Todo;
+const ConnectedTodo = connect((store) => ({
+    loading: store.loading
+}))(Todo);
+
+export default ConnectedTodo;

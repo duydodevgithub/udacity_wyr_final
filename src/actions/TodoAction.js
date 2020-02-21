@@ -1,6 +1,7 @@
 import uuid from "react-uuid";
 
-export const addGoalAction = ({name} = {}) => {
+//Goal action
+export const addGoalAction = (name) => {
     return {
         type: 'ADD_GOAL',
         goal: {
@@ -11,7 +12,40 @@ export const addGoalAction = ({name} = {}) => {
     }
 }
 
-export const addTodoAction = ({name} = {}) => {
+export function handleAddGoal(goal) {
+    return (dispatch) => {
+        dispatch(addGoalAction(goal));
+        return window.API.saveGoal(goal.name)
+        .catch(() => {
+            dispatch(removeGoalAction(goal));
+            alert("An error has been occured. Try again!")
+        })
+    }
+}
+
+export const removeGoalAction = (goal) => {
+    return {
+        type: "REMOVE_GOAL",
+        removeGoal: {
+            id: goal.id
+        }
+    }
+}
+
+export function handleRemoveGoal(goal) {
+    return (dispatch) => {
+        dispatch(removeGoalAction(goal));
+        return window.API.deleteGoal(goal.id)
+        .catch(() => {
+            dispatch(addGoalAction(goal.name));
+            alert("An error has been occured. Try again!")
+        })
+    }
+}
+
+//To do action
+
+export const addTodoAction = (name) => {
     return {
         type: 'ADD_TODO',
         todo: {
@@ -22,29 +56,36 @@ export const addTodoAction = ({name} = {}) => {
     }
 }
 
-export const removeTodoAction = (id) => {
-    console.log(id);
+export const removeTodoAction = (todo) => {
+    // console.log(id);
     return {
         type: "REMOVE_TODO",
         removeTodo: {
-            id: id
+            id : todo.id
         }
     }
 }
 
-export const removeGoalAction = (id) => {
-    return {
-        type: "REMOVE_GOAL",
-        removeGoal: {
-            id: id
-        }
+export function handleRemoveTodo(todo) {
+    console.log(todo);
+    return (dispatch) => {
+        dispatch(removeTodoAction(todo));
+        return window.API.deleteTodo(todo.id)
+        .catch(()=> {
+            dispatch(addTodoAction(todo.name));
+            alert("An error has been occured. Try again!")
+        })
     }
 }
 
-export const receiveDataAction = (todos, goals) => {
-    return {
-        type: "RECEIVE_DATA",
-        todos,
-        goals
+export function handleAddTodo(todo) {
+    return(dispatch) => {
+        dispatch(addTodoAction(todo))
+        return window.API.saveTodo(todo.name)
+        .catch(()=>{
+            dispatch(removeTodoAction(todo));
+            alert("An error has been occured. Try again!")
+        })
     }
 }
+
