@@ -1,10 +1,14 @@
-
 export const auth = (id) => {
     return {
-        type: 'AUTH',
+        type: 'AUTHED_USER',
         auth: {
-            id,
-            login: false
+            id
         }
+    }
+}
+
+export const logout = () => {
+    return {
+        type: 'LOGOUT_USER',
     }
 }

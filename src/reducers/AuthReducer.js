@@ -1,8 +1,10 @@
-export const users = (state = [], action) => {
+export const authedUser = (state = [], action) => {
     switch(action.type) {
-        case "RECEIVE_USERS":
-            return [...state, action.users]
+        case "AUTHED_USER":
+            return [...state, action.auth];
+        case "LOGOUT_USER":
+            return state = []
         default:
-            return state;
+            return state
     }
 }

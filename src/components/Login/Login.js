@@ -1,18 +1,33 @@
 import React from 'react';
 import {_getUsers} from '../../utils/_DATA';
 import {loadUserList} from '../../actions/Share';
+import {auth} from '../../actions/Auth';
 import {connect} from 'react-redux';
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handlePickUser = this.handlePickUser.bind(this);
+    }
+
     componentDidMount() {
         const {dispatch} = this.props;
 
         Promise.all([
             _getUsers()
         ]).then(([users]) => {
-            console.log(users);
+            // console.log(users);
             dispatch(loadUserList(users));
         })
+    }
+
+    handlePickUser(e, userId) {
+        const {dispatch} = this.props;
+
+        e.preventDefault();
+        console.log(userId);
+        //dispatch action to handle authed user here
+        dispatch(auth(userId));
     }
 
     render() {
@@ -26,17 +41,23 @@ class Login extends React.Component {
 
         return (
             <div>
-                <h1>Welcome</h1>
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="exampleFormControlSelect1">Select Account to Login</label>
-                        <select className="form-control" id="exampleFormControlSelect1">
-                         {Object.values(this.props.users[0]).map((obj) =>(
-                             <option key={obj.id}>{obj.name}</option>
-                         ))}
-                        </select>
+                {/* <h1>Select a user to login</h1> */}
+                <div className="container">
+                    <div className="row">
+                        {Object.values(this.props.users[0]).map((obj) =>(
+                            <div key={obj.id} className="card col-sm-4" style={{width: "18rem", padding:"20px"}}>
+                                <img style={{ height:"200px" }} src={obj.avatarURL} className="card-img-top" alt={ obj.name } />
+                                <div className="card-body">
+                                    <h5 className="card-title">{obj.name}</h5>
+                                </div>
+                                <button onClick={(e) => {this.handlePickUser(e, obj.id)}}>Pick</button>
+                            </div>    
+                        ))}
                     </div>
-                </form>
+                    
+                </div>
+                
+                
             </div>
         )
     }
