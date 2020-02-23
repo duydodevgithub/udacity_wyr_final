@@ -8,6 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import {todos, goals, loading } from "./reducers/TodoReducer";
 import {users} from "./reducers/InitialData";
 import {authedUser} from "./reducers/AuthReducer";
+import {questions} from "./reducers/QuestionReducer";
 import thunk from "redux-thunk";
 import { Provider } from 'react-redux';
 
@@ -17,7 +18,8 @@ const store = createStore(combineReducers({
     goals,
     loading,
     users,
-    authedUser
+    authedUser,
+    questions
 }), applyMiddleware(thunk,logger,checker));
 
 // store.subscribe(() => {

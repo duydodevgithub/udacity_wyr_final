@@ -14,4 +14,9 @@ export const loadUserList = (users) => {
     }
 }
 
-
+export const loadQuestions = (questions) => {
+    return {
+        type: "RECEIVE_QUESTIONS",
+        questions
+    }
+}

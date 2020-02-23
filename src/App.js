@@ -3,7 +3,8 @@ import './App.css';
 // import Todo from './components/Todo';
 import ConnectLogIn from './components/Login';
 import Leaderboard from './components/Leaderboard';
-import Newquestion from './components/Newquestion';
+import ConnectedQuestion from './components/Newquestion';
+import ConnectedHome from './components/Home';
 import {logout} from './actions/Auth';
 // import Todo from './components/Todo';
 import { connect } from 'react-redux';
@@ -23,7 +24,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		console.log("auth user here" ,this.props.autheduser);
+		// console.log("auth user here" ,this.props.autheduser);
 		if(this.props.autheduser.length === 0) {
 			return(
 				<ConnectLogIn />
@@ -43,13 +44,17 @@ class App extends React.Component {
 									<Link className="nav-item nav-link" to="/newquestion">New Question</Link>
 									<Link className="nav-item nav-link" to="/leaderboard">Leader Board</Link>	
 									{/* <Link className="nav-item nav-link" to="/todoapp">Todo App</Link>	 */}
-									<Link className="nav-item nav-link" onClick={(e) => this.handleLogout(e)}>Log Out</Link>
+									{/* <Link className="nav-item nav-link" onClick={(e) => this.handleLogout(e)}>Log Out</Link> */}
+									<button onClick={(e) => this.handleLogout(e)}>Log out</button>
 								</div>
 							</div>
 						</nav>
 						<Switch>
+								<Route exact path="/">
+									<ConnectedHome />
+								</Route>
 								<Route exact path="/newquestion">
-									<Newquestion />
+									<ConnectedQuestion />
 								</Route>
 								<Route exact path="/leaderboard">
 									<Leaderboard />
@@ -71,7 +76,8 @@ class App extends React.Component {
 
 const ConnectedApp = connect((store) => ({
 	loading: store.loading,
-	autheduser: store.authedUser
+	autheduser: store.authedUser,
+	todos: store.todos
 }))(App);
 
 export default ConnectedApp;
