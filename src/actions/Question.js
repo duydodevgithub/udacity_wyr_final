@@ -3,7 +3,7 @@ import {_saveQuestion} from "../utils/_DATA";
 
 //add new question
 const addQuestionAction = (question) => {
-    console.log("hereeee");
+    // console.log("hereeee");
     return {
         type: 'ADD_QUESTION',
         question: {

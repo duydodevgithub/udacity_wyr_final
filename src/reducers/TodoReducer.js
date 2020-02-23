@@ -34,6 +34,8 @@ export const loading = (state = true, action) => {
             return false;
         case "RECEIVE_USERS":
             return false;
+        case "RECEIVE_QUESTIONS":
+            return false;
         default:
             return state;
     }
