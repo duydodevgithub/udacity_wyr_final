@@ -11,6 +11,9 @@ class Newquestion extends React.Component {
 
     handleFormSubmit(e) {
         const {dispatch} = this.props;
+        let input1 = document.getElementById("formGroupExampleInput1");
+        let input2 = document.getElementById("formGroupExampleInput2");
+
         e.preventDefault();
         if(e.target.option1.value === "" || e.target.option2.value === "") {
             alert("Input can't be blank");
@@ -24,6 +27,9 @@ class Newquestion extends React.Component {
                     author: this.props.authedUser
                 }
             ))
+
+            input1.value = '';
+            input2.value = '';
         }
     }
 
@@ -36,7 +42,7 @@ class Newquestion extends React.Component {
                     <h3>Would you rather...</h3>
                     <div className="form-group">
                         {/* <label htmlFor="formGroupExampleInput2">Option 1</label> */}
-                        <input name="option1" type="text" className="form-control" id="formGroupExampleInput2" placeholder="Option 1" />
+                        <input name="option1" type="text" className="form-control" id="formGroupExampleInput1" placeholder="Option 1" />
                     </div>
                     <h3>Or</h3>
 
