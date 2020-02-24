@@ -1,14 +1,14 @@
-import {_getQuestions, _getUsers} from "../utils/_DATA";
+import {getInitialData} from "../utils/api";
 
 
 //Receive data action
-export const receiveDataAction = (todos, goals) => {
-    return {
-        type: "RECEIVE_DATA",
-        todos,
-        goals
-    }
-}
+// export const receiveDataAction = (todos, goals) => {
+//     return {
+//         type: "RECEIVE_DATA",
+//         todos,
+//         goals
+//     }
+// }
 
 export const loadUserList = (users) => {
     return {
@@ -26,20 +26,13 @@ export const loadQuestions = (questions) => {
 
 export const handleLoadQuestions = (authedUser) => {
         return (dispatch) => {
-            Promise.all([
-                _getQuestions(),
-                _getUsers()
-            ]).then(([questions, users]) => {
-                const answerArr = Object.keys(users[authedUser].answers);
-                answerArr.forEach(element => {
-                    delete questions[element];
-                });
-                const questionsArr = Object.values(questions);
-                dispatch(loadQuestions(questionsArr));
+            return getInitialData()
+            .then(({users, questions}) => {
+                // console.log(users, questions);
+                dispatch(loadQuestions(questions));
             })
-            .catch(() =>{
-                alert("Error in loading Data. Please contact IT");
+            .catch(() => {
+                alert("Error getting initial data. Please contact IT");
             })
         }
 }
-

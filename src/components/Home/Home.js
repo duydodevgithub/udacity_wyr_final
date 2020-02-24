@@ -1,20 +1,21 @@
 import React from "react";
 import {connect} from 'react-redux';
 import{handleLoadQuestions} from "../../actions/Share";
+import { questions } from "../../reducers/QuestionReducer";
 
 class Home extends React.Component {
 
     componentDidMount() {
         const {dispatch} = this.props;
-        const authedUser = this.props.authedUser[0].id;
+        const authedUser = this.props.authedUser;
+        // console.log(this.props.authedUser);
 
         dispatch(handleLoadQuestions(authedUser));
     }
 
     render() {
-        const questions = this.props.questions;
 
-        console.log(questions[0]);
+        console.log(this.props);
 
         if(this.props.loading === true) {
             return (
@@ -26,19 +27,26 @@ class Home extends React.Component {
         return(
             <div>
                 <h3>Load unanswered question of authed user here</h3>
-                {this.props.questions.map((question) => (
-                    <p key={Date}>{question.author}test</p>
-                )) 
-                }
+                {this.props.questionID.map((question) => (
+                        <p key={question}>{question}AAA</p>
+                    ))}
             </div>
         )
     }
 }
 
-const ConnectedHome = connect((store) => ({
-    loading: store.loading,
-    authedUser: store.authedUser,
-    questions: store.questions
-}))(Home);
+function mapStateToProps({loading, authedUser, questions}) {
+    return {
+        loading,
+        authedUser,
+        questionID: Object.keys(questions)
+    }
+}
 
-export default ConnectedHome;
+// const ConnectedHome = connect((store) => ({
+//     loading: store.loading,
+//     authedUser: store.authedUser,
+//     questions: store.questions
+// }))(Home);
+
+export default connect(mapStateToProps)(Home);

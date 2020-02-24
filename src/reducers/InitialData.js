@@ -1,7 +1,7 @@
 export const users = (state = [], action) => {
     switch(action.type) {
         case "RECEIVE_USERS":
-            return [...state, action.users]
+            return [action.users]
         default:
             return state;
     }

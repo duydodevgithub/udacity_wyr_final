@@ -5,7 +5,9 @@ import ConnectedApp from './App';
 import * as serviceWorker from './serviceWorker';
 import {logger, checker} from './middlewares/Todomiddleware'
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import {todos, goals, loading } from "./reducers/TodoReducer";
+// import {todos, goals, loading } from "./reducers/TodoReducer";
+import { loading } from "./reducers/TodoReducer";
+
 import {users} from "./reducers/InitialData";
 import {authedUser} from "./reducers/AuthReducer";
 import {questions} from "./reducers/QuestionReducer";
@@ -14,8 +16,8 @@ import { Provider } from 'react-redux';
 
 
 const store = createStore(combineReducers({
-    todos,
-    goals,
+    // todos,
+    // goals,
     loading,
     users,
     authedUser,

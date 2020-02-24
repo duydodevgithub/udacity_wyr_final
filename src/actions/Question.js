@@ -1,5 +1,5 @@
 import uuid from "react-uuid";
-import {_saveQuestion} from "../utils/_DATA";
+import {saveQuestion} from "../utils/api";
 
 //add new question
 const addQuestionAction = (question) => {
@@ -29,7 +29,7 @@ export function handleAddQuestion(question) {
     return (dispatch) => {
         dispatch(addQuestionAction(question));
 
-        _saveQuestion(question)
+        saveQuestion(question)
         .catch(() => {
             dispatch(removeQuestionAction(question));
             alert("Error saving question. Please try again");

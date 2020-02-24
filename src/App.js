@@ -4,8 +4,9 @@ import './App.css';
 import ConnectLogIn from './components/Login';
 import Leaderboard from './components/Leaderboard';
 import ConnectedQuestion from './components/Newquestion';
-import ConnectedHome from './components/Home';
+import Home from './components/Home';
 import {logout} from './actions/Auth';
+import {handleLoadQuestions} from "./actions/Share";
 // import Todo from './components/Todo';
 import { connect } from 'react-redux';
 import {
@@ -17,6 +18,14 @@ import {
 
 class App extends React.Component {
 
+	componentDidMount() {
+        const {dispatch} = this.props;
+        const authedUser = this.props.authedUser;
+        // console.log(this.props.authedUser);
+
+        dispatch(handleLoadQuestions(authedUser));
+    }
+
 	handleLogout() {
 		const {dispatch} = this.props;
 
@@ -25,7 +34,7 @@ class App extends React.Component {
 
 	render() {
 		// console.log("auth user here" ,this.props.autheduser);
-		if(this.props.autheduser.length === 0) {
+		if(!this.props.autheduser) {
 			return(
 				<ConnectLogIn />
 			)
@@ -40,7 +49,7 @@ class App extends React.Component {
 							</button>
 							<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 								<div className="navbar-nav">
-									<Link className="nav-item nav-link active" to="/">Home</Link>
+									<Link className="nav-item nav-link" to="/">Home</Link>
 									<Link className="nav-item nav-link" to="/newquestion">New Question</Link>
 									<Link className="nav-item nav-link" to="/leaderboard">Leader Board</Link>	
 									{/* <Link className="nav-item nav-link" to="/todoapp">Todo App</Link>	 */}
@@ -51,7 +60,7 @@ class App extends React.Component {
 						</nav>
 						<Switch>
 								<Route exact path="/">
-									<ConnectedHome />
+									<Home />
 								</Route>
 								<Route exact path="/newquestion">
 									<ConnectedQuestion />

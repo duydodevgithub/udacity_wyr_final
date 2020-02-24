@@ -21,7 +21,7 @@ class Newquestion extends React.Component {
                 {
                     optionOneText: e.target.option1.value,
                     optionTwoText: e.target.option2.value,
-                    author: this.props.authedUser[0].id
+                    author: this.props.authedUser
                 }
             ))
         }
@@ -31,12 +31,15 @@ class Newquestion extends React.Component {
         // console.log(this.props.authedUser[0].id);
         return (
             <div>
-                <h2>Hello {this.props.authedUser[0].id}! Please enter your new options</h2>
+                <h2>Hello {this.props.authedUser}! Create New Question</h2>
                 <form onSubmit={this.handleFormSubmit}>
+                    <h3>Would you rather...</h3>
                     <div className="form-group">
                         {/* <label htmlFor="formGroupExampleInput2">Option 1</label> */}
                         <input name="option1" type="text" className="form-control" id="formGroupExampleInput2" placeholder="Option 1" />
                     </div>
+                    <h3>Or</h3>
+
                     <div className="form-group">
                         {/* <label htmlFor="formGroupExampleInput2">Option 2</label> */}
                         <input name="option2" type="text" className="form-control" id="formGroupExampleInput2" placeholder="Option 2" />
