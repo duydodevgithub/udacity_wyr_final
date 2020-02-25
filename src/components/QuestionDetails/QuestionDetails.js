@@ -6,7 +6,15 @@ class QuestionDetails extends React.Component {
         console.log(this.props);
         return(
             <div>
-                {this.props.questions[this.props.qid].author}
+                <p>{this.props.questions[this.props.qid].author}</p>
+                <p>
+                    {this.props.questions[this.props.qid].optionOne.text}
+                    {this.props.questions[this.props.qid].optionOne.votes.length}
+                </p>
+                <p>
+                    {this.props.questions[this.props.qid].optionTwo.text}
+                    {this.props.questions[this.props.qid].optionTwo.votes.length}
+                </p>
             </div>
         )
     }

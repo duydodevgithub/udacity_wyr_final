@@ -81,7 +81,7 @@ class Home extends React.Component {
                     </div>
 
                     <div id="answered" className="tab-pane fade">
-                        <h5>Load answered questions here</h5>
+                        {/* <h5>Load answered questions here</h5> */}
                         <div className="container">
                             <div className="row">
                                 {this.props.answeredQuestionIdArr.map((id)=>{
