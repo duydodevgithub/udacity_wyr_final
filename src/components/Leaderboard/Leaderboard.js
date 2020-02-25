@@ -17,7 +17,13 @@ class Leaderboard extends React.Component {
     }
 
     render() {
-        
+        if(this.props.loading === true) {
+            return (
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            )
+        }
         return (
             <div>
                 <h1>Leader Board</h1>
