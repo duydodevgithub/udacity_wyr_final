@@ -2,7 +2,9 @@ import React from "react";
 import {connect} from 'react-redux';
 import{handleLoadInitialData} from "../../actions/Share";
 import { handleSaveAnswerQuestion } from "../../actions/Question";
-import QuestionDetails from "../QuestionDetails";
+import {
+	Link
+} from "react-router-dom";
 
 class Home extends React.Component {
 
@@ -56,22 +58,31 @@ class Home extends React.Component {
                 <div className="tab-content">
                     <div id="unanswered" className="tab-pane fade in active">
                         {/* <h5>Load unanswered questions here</h5>   */}
-                        <div className="container">
+                        <div className="container" style={{ "marginTop": "20px" }}>
                             <div className="row" >
 
                         {this.props.unAnsweredQuestionIdArr.map((id)=>{
                             return (
                                         <div className="col-md-4"  key={id}>
-                                            <h5>Asked by: {this.props.questions[id].author}</h5>
-                                            <h6>Would you rather?</h6>
-                                            <form onSubmit={(e) => {this.handleFormSubmit(e, id)}}>
-                                                <input type="radio" name="answer" value="optionOne" required/>
-                                                <label htmlFor="optionOne">{this.props.questions[id].optionOne.text}</label><br></br>
-                                                <input type="radio" name="answer" value="optionTwo" />
-                                                <label htmlFor="optionTwo">{this.props.questions[id].optionTwo.text}</label><br></br>
-                                                <button>Submit</button>
-                                            </form>
                                             {/* <p key={id}>{this.props.questions[id].id}</p> */}
+                                            <div className="panel panel-default">
+                                                <div className="panel-heading">
+                                                    <h3 className="panel-title">Asked by {this.props.questions[id].author}</h3>
+                                                </div>
+                                                <div className="panel-body">
+                                                <form onSubmit={(e) => {this.handleFormSubmit(e, id)}}>
+                                                    <p>Would you rather...</p>
+                                                    <input type="radio" name="answer" value="optionOne" required/>
+                                                    <label className="radio-inline" htmlFor="optionOne">{this.props.questions[id].optionOne.text}?</label><br></br>
+                                                    <input type="radio" name="answer" value="optionTwo" />
+                                                    <label className="radio-inline" htmlFor="optionTwo">{this.props.questions[id].optionTwo.text}?</label><br></br>
+                                                        
+                                                    <button type="submit" className="btn btn-default pull-right">Submit</button>
+                                                    <Link to={`/questionDetail/${id}`}>Question details</Link>
+
+                                                </form>
+                                                </div>
+                                            </div>
                                         </div>
                                 )
                              })}  
@@ -82,13 +93,25 @@ class Home extends React.Component {
 
                     <div id="answered" className="tab-pane fade">
                         {/* <h5>Load answered questions here</h5> */}
-                        <div className="container">
+                        <div className="container" style={{ "marginTop": "20px" }}>
                             <div className="row">
                                 {this.props.answeredQuestionIdArr.map((id)=>{
+                                    let d = new Date(this.props.questions[id].timestamp);
+                                    let date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() +' '+ d.getHours()+':'+ d.getMinutes()+':'+ d.getSeconds();
+
                                     return(
                                         <div className="col-md-4" key={id}>
-                                            <p >{this.props.questions[id].timestamp}</p>
-                                            <QuestionDetails qid={id}/>
+                                            <div className="panel panel-default">
+                                                <div className="panel-heading">
+                                                    <h3 className="panel-title">Asked by {this.props.questions[id].author}</h3>
+                                                    <p>Created At: {date}</p>
+
+                                                </div>
+                                                <div className="panel-body">
+                                                </div>
+                                                <Link to={`/questionDetail/${id}`}>View Question details</Link>
+                                            </div>
+                                            
                                         </div>
                                     )
                                 })}

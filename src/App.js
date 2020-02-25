@@ -5,6 +5,7 @@ import ConnectLogIn from './components/Login';
 import Leaderboard from './components/Leaderboard';
 import ConnectedQuestion from './components/Newquestion';
 import Home from './components/Home';
+import QuestionDetails from "./components/QuestionDetails";
 import {logout} from './actions/Auth';
 import {handleLoadInitialData} from "./actions/Share";
 // import Todo from './components/Todo';
@@ -43,18 +44,18 @@ class App extends React.Component {
 			return(
 				<Router>
 					<div className='container'>
-						<nav className="navbar navbar-expand-lg navbar-light bg-light">
-							<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-								<span className="navbar-toggler-icon"></span>
-							</button>
-							<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-								<div className="navbar-nav">
-									<Link className="nav-item nav-link active" to="/">Home</Link>
-									<Link className="nav-item nav-link" to="/newquestion">New Question</Link>
-									<Link className="nav-item nav-link" to="/leaderboard">Leader Board</Link>	
-									{/* <Link className="nav-item nav-link" to="/todoapp">Todo App</Link>	 */}
-									{/* <Link className="nav-item nav-link" onClick={(e) => this.handleLogout(e)}>Log Out</Link> */}
-									<button onClick={(e) => this.handleLogout(e)}>Log out</button>
+						<nav className="navbar navbar-default">
+							<div className="container-fluid">
+								<div className="navbar-header">
+									<ul className="nav navbar-nav">
+										<li><Link className="nav-item nav-link active" to="/">Home</Link></li>
+										<li><Link className="nav-item nav-link" to="/newquestion">New Question</Link></li>
+										<li><Link className="nav-item nav-link" to="/leaderboard">Leader Board</Link>	</li>
+									</ul>
+									<ul className="nav navbar-nav navbar-right">
+										{/* <li>Welcome {this.props.autheduser}</li> */}
+										<li><Link className="nav-item nav-link" to="/" onClick={(e) => this.handleLogout(e)}>Log Out</Link></li>
+									</ul>
 								</div>
 							</div>
 						</nav>
@@ -68,6 +69,9 @@ class App extends React.Component {
 								<Route exact path="/leaderboard">
 									<Leaderboard />
 								</Route>
+								<Route exact path="/questionDetail/:id" component={QuestionDetails}/>
+								<Route component={Home} />
+
 								{/* <Route exact path="/">
 									<ConnectLogIn />
 								</Route> */}

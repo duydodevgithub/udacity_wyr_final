@@ -36,22 +36,27 @@ class Newquestion extends React.Component {
     render() {
         // console.log(this.props.authedUser[0].id);
         return (
-            <div>
-                <h2>Hello {this.props.authedUser}! Create New Question</h2>
-                <form onSubmit={this.handleFormSubmit}>
-                    <h3>Would you rather...</h3>
-                    <div className="form-group">
-                        {/* <label htmlFor="formGroupExampleInput2">Option 1</label> */}
-                        <input name="option1" type="text" className="form-control" id="formGroupExampleInput1" placeholder="Option 1" />
-                    </div>
-                    <h3>Or</h3>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                        <h3>Hello {this.props.authedUser}!</h3>
+                        <h5>Please add your new question</h5>
+                        <form onSubmit={this.handleFormSubmit}>
+                            <h3>Would you rather...</h3>
+                            <div className="form-group">
+                                {/* <label htmlFor="formGroupExampleInput2">Option 1</label> */}
+                                <input name="option1" type="text" className="form-control" id="formGroupExampleInput1" placeholder="Option 1" />
+                            </div>
+                            <h3>Or</h3>
 
-                    <div className="form-group">
-                        {/* <label htmlFor="formGroupExampleInput2">Option 2</label> */}
-                        <input name="option2" type="text" className="form-control" id="formGroupExampleInput2" placeholder="Option 2" />
+                            <div className="form-group">
+                                {/* <label htmlFor="formGroupExampleInput2">Option 2</label> */}
+                                <input name="option2" type="text" className="form-control" id="formGroupExampleInput2" placeholder="Option 2" />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                        </form>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div>
         )
     }

@@ -45,13 +45,16 @@ class Login extends React.Component {
                 <div className="container">
                     <div className="row">
                         {Object.values(this.props.users[0]).map((obj) =>(
-                            <div key={obj.id} className="card col-sm-4" style={{width: "18rem", padding:"20px"}}>
-                                <img style={{ height:"200px" }} src={obj.avatarURL} className="card-img-top" alt={ obj.name } />
-                                <div className="card-body">
-                                    <h5 className="card-title">{obj.name}</h5>
-                                </div>
-                                <button onClick={(e) => {this.handlePickUser(e, obj.id)}}>Pick</button>
-                            </div>    
+                            <div key={obj.id} className="col-md-4">
+                                <div className="card" style={{border: "1px solid black", padding: "5px"}}>
+                                    <img style={{ height:"200px" }} src={obj.avatarURL} className="card-img-top" alt={ obj.name } />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{obj.name}</h5>
+                                    </div>
+                                    <button onClick={(e) => {this.handlePickUser(e, obj.id)}}>Pick</button>
+                                </div> 
+                            </div>
+                               
                         ))}
                     </div>
                     
