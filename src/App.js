@@ -40,14 +40,17 @@ class App extends React.Component {
 		
 		if(!this.props.autheduser) {
 			return(
-				<ConnectLogIn />
+				<div>
+					<LoadingBar />
+					<ConnectLogIn />
+
+				</div>
 			)
 		}
 		else {
 			return(
 				<Router>
 					<div className='container'>
-						<LoadingBar />
 						<nav className="navbar navbar-default">
 							<div className="container-fluid">
 								<div className="navbar-header">

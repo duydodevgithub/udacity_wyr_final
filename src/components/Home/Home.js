@@ -5,6 +5,7 @@ import { handleSaveAnswerQuestion } from "../../actions/Question";
 import {
 	Link
 } from "react-router-dom";
+import LoadingBar from "react-redux-loading";
 
 class Home extends React.Component {
 
@@ -44,6 +45,7 @@ class Home extends React.Component {
         }
         return(
             <div className="container">
+                <LoadingBar />
                 <h2>Welcome {this.props.user.name} !</h2>
 
                 <ul className="nav nav-tabs">
