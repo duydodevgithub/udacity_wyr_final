@@ -37,10 +37,7 @@ export function handleAddQuestion(question) {
             dispatch(removeQuestionAction(question));
             alert("Error saving question. Please try again");
         }).then(() =>{
-            dispatch(showLoading());
-
             dispatch(handleLoadInitialData());
-            dispatch(hideLoading());
 
         }).then(() => {
             dispatch(hideLoading());
