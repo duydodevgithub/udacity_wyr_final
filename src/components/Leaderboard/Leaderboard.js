@@ -25,25 +25,43 @@ class Leaderboard extends React.Component {
             )
         }
         return (
-            <div>
-                <h1>Leader Board</h1>
-                {this.props.users.sort((a,b)=>{
-                    return ((Object.keys(b.answers).length + b.questions.length) - (Object.keys(a.answers).length + a.questions.length));
-                }).map((user) => {
-                    return (
-                        <div key={user.id}>
-                            
-                            <div className="card" style={{width: '18rem', border: "1px solid black", padding: "5px"}}>
-                                <div className="card-body">
-                                    <h5 className="card-title">{user.name}</h5>
-                                    <p>Answered questions: {  Object.keys(user.answers).length }</p>
-                                    <p>Created questions: {  user.questions.length }</p>
-                                    <p>Score: {Object.keys(user.answers).length + user.questions.length} </p>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                        <h1>Leader Board</h1>
+                        {this.props.users.sort((a,b)=>{
+                            return ((Object.keys(b.answers).length + b.questions.length) - (Object.keys(a.answers).length + a.questions.length));
+                        }).map((user) => {
+                            return (
+                                <div key={user.id}>
+                                    <div className="panel panel-default">
+                                        <div className="panel-heading">
+                                            <h3 className="panel-title">{user.name}</h3>
+                                        </div>
+                                        <div className="panel-body">
+                                            <table className="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr className="success">
+                                                        <th>Answered Questions</th>
+                                                        <th>Created Questions</th>
+                                                        <th>Score</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{  Object.keys(user.answers).length }</td>
+                                                        <td>{  user.questions.length }</td>
+                                                        <td>{  Object.keys(user.answers).length + user.questions.length} </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    )
-                })}
+                            )
+                        })}
+                    </div>
+                </div>
             </div>
         )
     }

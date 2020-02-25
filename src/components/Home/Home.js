@@ -44,7 +44,7 @@ class Home extends React.Component {
         }
         return(
             <div className="container">
-                <h2>Welcome {this.props.user.name}</h2>
+                <h2>Welcome {this.props.user.name} !</h2>
 
                 <ul className="nav nav-tabs">
                     <li className="active">
@@ -76,9 +76,10 @@ class Home extends React.Component {
                                                     <label className="radio-inline" htmlFor="optionOne">{this.props.questions[id].optionOne.text}?</label><br></br>
                                                     <input type="radio" name="answer" value="optionTwo" />
                                                     <label className="radio-inline" htmlFor="optionTwo">{this.props.questions[id].optionTwo.text}?</label><br></br>
-                                                        
-                                                    <button type="submit" className="btn btn-default pull-right">Submit</button>
-                                                    <Link to={`/questionDetail/${id}`}>Question details</Link>
+                                                    <div style={{ "marginTop" : "10px" }}>
+                                                        <button type="submit" className="btn btn-default pull-right">Submit</button>
+                                                        <button className="btn btn-default pull-left"><Link to={`/questionDetail/${id}`}>Question details</Link></button>
+                                                    </div>
 
                                                 </form>
                                                 </div>
@@ -100,19 +101,29 @@ class Home extends React.Component {
                                     let date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() +' '+ d.getHours()+':'+ d.getMinutes()+':'+ d.getSeconds();
 
                                     return(
-                                        <div className="col-md-4" key={id}>
-                                            <div className="panel panel-default">
-                                                <div className="panel-heading">
-                                                    <h3 className="panel-title">Asked by {this.props.questions[id].author}</h3>
-                                                    <p>Created At: {date}</p>
+                                        <Link key={id} to={`/questionDetail/${id}`}>
+                                            <div className="col-md-6" >
+                                                <div className="panel panel-default">
+                                                    <div className="panel-heading">
+                                                        <h3 className="panel-title">Asked by {this.props.questions[id].author}</h3>
+                                                        <p>Created At: {date}</p>
 
+                                                    </div>
+                                                    <div className="panel-body">
+                                                    <table className="table table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{this.props.questions[id].optionOne.text}</td>
+                                                                <td>OR</td>
+                                                                <td>{this.props.questions[id].optionTwo.text}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
                                                 </div>
-                                                <div className="panel-body">
-                                                </div>
-                                                <Link to={`/questionDetail/${id}`}>View Question details</Link>
+                                                
                                             </div>
-                                            
-                                        </div>
+                                        </Link>
                                     )
                                 })}
                             </div>
