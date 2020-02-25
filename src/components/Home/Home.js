@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import{handleLoadInitialData} from "../../actions/Share";
 import { handleSaveAnswerQuestion } from "../../actions/Question";
+import QuestionDetails from "../QuestionDetails";
 
 class Home extends React.Component {
 
@@ -54,13 +55,14 @@ class Home extends React.Component {
 
                 <div className="tab-content">
                     <div id="unanswered" className="tab-pane fade in active">
-                        <h5>Load unanswered questions here</h5>  
+                        {/* <h5>Load unanswered questions here</h5>   */}
                         <div className="container">
                             <div className="row" >
 
                         {this.props.unAnsweredQuestionIdArr.map((id)=>{
                             return (
                                         <div className="col-md-4"  key={id}>
+                                            <h5>Asked by: {this.props.questions[id].author}</h5>
                                             <h6>Would you rather?</h6>
                                             <form onSubmit={(e) => {this.handleFormSubmit(e, id)}}>
                                                 <input type="radio" name="answer" value="optionOne" required/>
@@ -86,8 +88,8 @@ class Home extends React.Component {
                                     return(
                                         <div className="col-md-4" key={id}>
                                             <p >{this.props.questions[id].timestamp}</p>
+                                            <QuestionDetails qid={id}/>
                                         </div>
-                                    
                                     )
                                 })}
                             </div>
