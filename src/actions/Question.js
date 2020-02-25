@@ -2,6 +2,7 @@ import uuid from "react-uuid";
 import {saveQuestion} from "../utils/api";
 import {handleLoadInitialData} from "../actions/Share";
 import { _saveQuestionAnswer } from "../utils/_DATA";
+import {showLoading, hideLoading} from "react-redux-loading";
 
 //add new question
 const addQuestionAction = (question) => {
@@ -29,14 +30,20 @@ const removeQuestionAction = (question) => {
 export function handleAddQuestion(question) {
     console.log("From action handleAddQuestion: ", question);
     return (dispatch) => {
+        dispatch(showLoading());
         dispatch(addQuestionAction(question));
-
         saveQuestion(question)
         .catch(() => {
             dispatch(removeQuestionAction(question));
             alert("Error saving question. Please try again");
         }).then(() =>{
+            dispatch(showLoading());
+
             dispatch(handleLoadInitialData());
+            dispatch(hideLoading());
+
+        }).then(() => {
+            dispatch(hideLoading());
         })
     }
 }
@@ -53,11 +60,14 @@ export function handleAddQuestion(question) {
 export function handleSaveAnswerQuestion(answer) {
     console.log(answer);
     return (dispatch) => {
+        dispatch(showLoading());
         _saveQuestionAnswer(answer)
         .catch(() => {
             alert("Errors updating answer. Please try again")
         }).then(() =>{
             dispatch(handleLoadInitialData());
+        }).then(()=>{
+            dispatch(hideLoading());
         })
     }
 }

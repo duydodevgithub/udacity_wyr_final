@@ -13,6 +13,7 @@ import {authedUser} from "./reducers/AuthReducer";
 import {questions} from "./reducers/QuestionReducer";
 import thunk from "redux-thunk";
 import { Provider } from 'react-redux';
+import { loadingBarReducer } from "react-redux-loading";
 
 
 const store = createStore(combineReducers({
@@ -21,7 +22,8 @@ const store = createStore(combineReducers({
     loading,
     users,
     authedUser,
-    questions
+    questions,
+    loadingBar: loadingBarReducer
 }), applyMiddleware(thunk,logger,checker));
 
 // store.subscribe(() => {

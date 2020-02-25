@@ -1,6 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {handleAddQuestion} from "../../actions/Question";
+import {
+	Redirect
+} from "react-router-dom";
+
+import LoadingBar from "react-redux-loading";
 
 class Newquestion extends React.Component {
 
@@ -9,10 +14,15 @@ class Newquestion extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
+    state = {
+        toHome: false
+    }
+
+
     handleFormSubmit(e) {
         const {dispatch} = this.props;
-        let input1 = document.getElementById("formGroupExampleInput1");
-        let input2 = document.getElementById("formGroupExampleInput2");
+        // let input1 = document.getElementById("formGroupExampleInput1");
+        // let input2 = document.getElementById("formGroupExampleInput2");
 
         e.preventDefault();
         if(e.target.option1.value === "" || e.target.option2.value === "") {
@@ -28,15 +38,21 @@ class Newquestion extends React.Component {
                 }
             ))
 
-            input1.value = '';
-            input2.value = '';
+            this.setState({
+                toHome: true
+            }) 
         }
     }
 
     render() {
         // console.log(this.props.authedUser[0].id);
+        if(this.state.toHome === true) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className="container">
+                <LoadingBar />
                 <div className="row">
                     <div className="col-md-6">
                         <h3>Hello {this.props.authedUser}!</h3>
@@ -64,7 +80,8 @@ class Newquestion extends React.Component {
 
 const ConnectedQuestion = connect((store) =>({
     loading: store.loading,
-    authedUser: store.authedUser
+    authedUser: store.authedUser,
+    redirectFlag: store.redirectFlag
 }))(Newquestion);
 
 export default ConnectedQuestion;

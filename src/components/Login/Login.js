@@ -3,7 +3,7 @@ import {_getUsers} from '../../utils/_DATA';
 import {loadUserList} from '../../actions/Share';
 import {auth} from '../../actions/Auth';
 import {connect} from 'react-redux';
-
+import LoadingBar from "react-redux-loading";
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -42,7 +42,8 @@ class Login extends React.Component {
         return (
             <div>
                 {/* <h1>Select a user to login</h1> */}
-                <div className="container">
+                <LoadingBar />
+                <div className="container" style={{ "marginTop":"20px" }}>
                     <div className="row">
                         {Object.values(this.props.users[0]).map((obj) =>(
                             <div key={obj.id} className="col-md-4">

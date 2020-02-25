@@ -17,6 +17,8 @@ import {
 	Link
 } from "react-router-dom";
 
+import LoadingBar from "react-redux-loading";
+
 class App extends React.Component {
 
 	componentDidMount() {
@@ -35,6 +37,7 @@ class App extends React.Component {
 
 	render() {
 		// console.log("auth user here" ,this.props.autheduser);
+		
 		if(!this.props.autheduser) {
 			return(
 				<ConnectLogIn />
@@ -44,6 +47,7 @@ class App extends React.Component {
 			return(
 				<Router>
 					<div className='container'>
+						<LoadingBar />
 						<nav className="navbar navbar-default">
 							<div className="container-fluid">
 								<div className="navbar-header">

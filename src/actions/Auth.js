@@ -12,3 +12,9 @@ export const logout = () => {
         type: 'LOGOUT_USER',
     }
 }
+
+export const redirectFlag = () => {
+    return {
+        type: 'REDIRECT'
+    }
+}
