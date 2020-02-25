@@ -6,7 +6,7 @@ import Leaderboard from './components/Leaderboard';
 import ConnectedQuestion from './components/Newquestion';
 import Home from './components/Home';
 import {logout} from './actions/Auth';
-import {handleLoadQuestions} from "./actions/Share";
+import {handleLoadInitialData} from "./actions/Share";
 // import Todo from './components/Todo';
 import { connect } from 'react-redux';
 import {
@@ -23,7 +23,7 @@ class App extends React.Component {
         const authedUser = this.props.authedUser;
         // console.log(this.props.authedUser);
 
-        dispatch(handleLoadQuestions(authedUser));
+        dispatch(handleLoadInitialData(authedUser));
     }
 
 	handleLogout() {
@@ -49,7 +49,7 @@ class App extends React.Component {
 							</button>
 							<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
 								<div className="navbar-nav">
-									<Link className="nav-item nav-link" to="/">Home</Link>
+									<Link className="nav-item nav-link active" to="/">Home</Link>
 									<Link className="nav-item nav-link" to="/newquestion">New Question</Link>
 									<Link className="nav-item nav-link" to="/leaderboard">Leader Board</Link>	
 									{/* <Link className="nav-item nav-link" to="/todoapp">Todo App</Link>	 */}

@@ -1,5 +1,7 @@
 import uuid from "react-uuid";
 import {saveQuestion} from "../utils/api";
+import {handleLoadInitialData} from "../actions/Share";
+import { _saveQuestionAnswer } from "../utils/_DATA";
 
 //add new question
 const addQuestionAction = (question) => {
@@ -33,6 +35,29 @@ export function handleAddQuestion(question) {
         .catch(() => {
             dispatch(removeQuestionAction(question));
             alert("Error saving question. Please try again");
+        }).then(() =>{
+            dispatch(handleLoadInitialData());
+        })
+    }
+}
+
+//answer question action
+
+// const answerQuestionAction = (answer) => {
+//     return {
+//         type: "ANSWER_QUESTION",
+//         answer
+//     }
+// }
+
+export function handleSaveAnswerQuestion(answer) {
+    console.log(answer);
+    return (dispatch) => {
+        _saveQuestionAnswer(answer)
+        .catch(() => {
+            alert("Errors updating answer. Please try again")
+        }).then(() =>{
+            dispatch(handleLoadInitialData());
         })
     }
 }

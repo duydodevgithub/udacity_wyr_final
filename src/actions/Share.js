@@ -24,12 +24,13 @@ export const loadQuestions = (questions) => {
     }
 }
 
-export const handleLoadQuestions = (authedUser) => {
+export const handleLoadInitialData = (authedUser) => {
         return (dispatch) => {
             return getInitialData()
             .then(({users, questions}) => {
-                // console.log(users, questions);
+                console.log(questions);
                 dispatch(loadQuestions(questions));
+                dispatch(loadUserList(users));
             })
             .catch(() => {
                 alert("Error getting initial data. Please contact IT");

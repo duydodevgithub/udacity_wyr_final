@@ -17,17 +17,24 @@ class Leaderboard extends React.Component {
     }
 
     render() {
-        // console.log(this.props.users);
+        
         return (
             <div>
                 <h1>Leader Board</h1>
-                {this.props.users.map((user) => {
+                {this.props.users.sort((a,b)=>{
+                    return ((Object.keys(b.answers).length + b.questions.length) - (Object.keys(a.answers).length + a.questions.length));
+                }).map((user) => {
                     return (
                         <div key={user.id}>
-                            <p>User Name: {  user.name }</p>
-                            <p>Answered questions: {  Object.keys(user.answers).length }</p>
-                            <p>Created questions: {  user.questions.length }</p>
-                            <p>Score: {Object.keys(user.answers).length + user.questions.length} </p>
+                            
+                            <div className="card" style={{width: '18rem', border: "1px solid black", padding: "5px"}}>
+                                <div className="card-body">
+                                    <h5 className="card-title">{user.name}</h5>
+                                    <p>Answered questions: {  Object.keys(user.answers).length }</p>
+                                    <p>Created questions: {  user.questions.length }</p>
+                                    <p>Score: {Object.keys(user.answers).length + user.questions.length} </p>
+                                </div>
+                            </div>
                         </div>
                     )
                 })}
