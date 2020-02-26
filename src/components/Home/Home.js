@@ -46,8 +46,14 @@ class Home extends React.Component {
         return(
             <div className="container">
                 <LoadingBar />
-                <h2>Welcome {this.props.user.name} !</h2>
-
+                
+                <div className="media">
+                    
+                    <div className="media-left">
+                    <h2 className="media-heading">Welcome {this.props.user.name} !</h2>
+                        <img style={{ "width":"64px", "height":"64px" }} className="media-object" src={this.props.user.avatarURL} alt="..." />
+                    </div>
+                </div>
                 <ul className="nav nav-tabs">
                     <li className="active">
                         <a data-toggle="tab" href="#unanswered">Unanswered Questions</a>

@@ -36,7 +36,13 @@ class Leaderboard extends React.Component {
                                 <div key={user.id}>
                                     <div className="panel panel-default">
                                         <div className="panel-heading">
-                                            <h3 className="panel-title">{user.name}</h3>
+                                            {/* <h3 className="panel-title">{user.name}</h3> */}
+                                            <div className="media">
+                                                <div className="media-left">
+                                                <h3 className="media-heading">Welcome {user.name} !</h3>
+                                                    <img style={{ "width":"32px", "height":"32px" }} className="media-object" src={user.avatarURL} alt={user.name} />
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="panel-body">
                                             <table className="table table-bordered table-hover">
