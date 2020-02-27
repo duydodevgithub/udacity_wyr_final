@@ -36,7 +36,7 @@ class Home extends React.Component {
 
     render() {
 
-        console.log(this.props);
+        // console.log(this.props);
         if(!this.props.authedUser) {
 			return(
 				<div>
@@ -71,12 +71,16 @@ class Home extends React.Component {
                             <div className="row" >
 
                         {this.props.unAnsweredQuestionIdArr.map((id)=>{
+                            let d = new Date(this.props.questions[id].timestamp);
+                            let date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() +' '+ d.getHours()+':'+ d.getMinutes()+':'+ d.getSeconds();
+
                             return (
                                         <div className="col-md-4"  key={id}>
                                             {/* <p key={id}>{this.props.questions[id].id}</p> */}
                                             <div className="panel panel-default">
                                                 <div className="panel-heading">
                                                     <h3 className="panel-title">Asked by {this.props.questions[id].author}</h3>
+                                                    <p>Created at: {date}</p>
                                                 </div>
                                                 <div className="panel-body">
                                                 <form onSubmit={(e) => {this.handleFormSubmit(e, id)}}>
@@ -147,15 +151,25 @@ class Home extends React.Component {
 }
 
 function mapStateToProps({loading, authedUser, questions, users}) {
-    // console.log(users);
+
+    console.log(questions);
     if(users && questions && authedUser) {
+        let sortedQuestions = {};
+
+        Object.values(questions).sort((a,b)=>{
+            return a.timestamp - b.timestamp;
+        }).forEach((question) => (
+            sortedQuestions[question.id] = question
+            ))
         const user = users[0][authedUser];
-        const answeredQuestionIdArr = Object.keys(user.answers);
-        const questionIdArr = Object.keys(questions);
+        const questionIdArr = Object.keys(sortedQuestions);
+        const answeredQuestionIdArr = questionIdArr.filter((id) => {
+            return Object.keys(user.answers).includes(id);
+        }) ;
 
-        const unAnsweredQuestionIdArr = questionIdArr.filter(function(obj) { return answeredQuestionIdArr.indexOf(obj) === -1; });
 
-
+        const unAnsweredQuestionIdArr = questionIdArr.filter(function(id) { return !answeredQuestionIdArr.includes(id) });
+        
         return {
             loading,
             questions,

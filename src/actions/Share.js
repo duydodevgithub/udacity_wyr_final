@@ -30,7 +30,8 @@ export const handleLoadInitialData = (authedUser) => {
             dispatch(showLoading());
             return getInitialData()
             .then(({users, questions}) => {
-                console.log(questions);
+                // console.log(questions);
+                
                 dispatch(loadQuestions(questions));
                 dispatch(loadUserList(users));
             }).then(() => {

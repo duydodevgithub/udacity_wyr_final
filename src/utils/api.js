@@ -8,11 +8,23 @@ export function getInitialData() {
     return Promise.all([
         _getUsers(), 
         _getQuestions()
-    ]).then(([users, questions]) => ({
-        users,
-        questions
-    }))
+    ]).then(([users, questions]) => {
+
+        // console.log(questions);
+
+        // console.log(Object.values(questions).sort((a,b)=>{
+        //     return a.timestamp - b.timestamp;
+        // }));
+
+        
+       
+        return {
+            users,
+            questions
+        }
+    })
 }
+
 
 export function saveQuestion(question) {
     // console.log("question from api", question);
