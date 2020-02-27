@@ -157,7 +157,7 @@ function mapStateToProps({loading, authedUser, questions, users}) {
         let sortedQuestions = {};
 
         Object.values(questions).sort((a,b)=>{
-            return a.timestamp - b.timestamp;
+            return  b.timestamp - a.timestamp;
         }).forEach((question) => (
             sortedQuestions[question.id] = question
             ))
