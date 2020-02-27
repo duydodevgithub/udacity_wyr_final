@@ -4,6 +4,9 @@ import {loadUserList} from '../../actions/Share';
 import {auth} from '../../actions/Auth';
 import {connect} from 'react-redux';
 import LoadingBar from "react-redux-loading";
+import {
+	Redirect
+} from "react-router-dom";
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -25,51 +28,50 @@ class Login extends React.Component {
         const {dispatch} = this.props;
 
         e.preventDefault();
-        console.log(userId);
+        // console.log(userId);
         //dispatch action to handle authed user here
         dispatch(auth(userId));
+
     }
 
     render() {
-        if(this.props.loading === true) {
+        // console.log(typeof(this.props.users))
+        if(!(typeof(this.props.users) === "undefined")) {
             return (
-                <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
+                <div className="jumbotron">
+                    {/* <h1>Select a user to login</h1> */}
+                    <LoadingBar />
+                    <div>
+                    <div className="container" style={{ "marginTop":"20px" }}>
+                        <div className="row">
+                            {Object.values(this.props.users).map((obj) =>(
+                                <div key={obj.id} className="col-md-4">
+                                    <div className="card" style={{border: "1px solid black", padding: "5px"}}>
+                                        <img style={{ height:"300px", width:"300px" }} src={obj.avatarURL} className="card-img-top" alt={ obj.name } />
+                                        <div className="card-body">
+                                            <h5 className="card-title">{obj.name}</h5>
+                                        </div>
+                                        <button onClick={(e) => {this.handlePickUser(e, obj.id)}}>Pick</button>
+                                    </div> 
+                                </div>
+                                   
+                            ))}
+                        </div>
+                        
+                    </div>
+                    </div>
                 </div>
             )
         }
 
-        return (
-            <div>
-                {/* <h1>Select a user to login</h1> */}
-                <LoadingBar />
-                <div className="container" style={{ "marginTop":"20px" }}>
-                    <div className="row">
-                        {Object.values(this.props.users[0]).map((obj) =>(
-                            <div key={obj.id} className="col-md-4">
-                                <div className="card" style={{border: "1px solid black", padding: "5px"}}>
-                                    <img style={{ height:"200px" }} src={obj.avatarURL} className="card-img-top" alt={ obj.name } />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{obj.name}</h5>
-                                    </div>
-                                    <button onClick={(e) => {this.handlePickUser(e, obj.id)}}>Pick</button>
-                                </div> 
-                            </div>
-                               
-                        ))}
-                    </div>
-                    
-                </div>
-                
-                
-            </div>
-        )
+        return <Redirect to="/" />
+        
     }
 }
 
 const ConnectLogIn = connect((store) => ({
     loading: store.loading,
-    users: store.users
+    users: store.users[0]
 }))(Login);
 
 export default ConnectLogIn;

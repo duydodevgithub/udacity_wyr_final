@@ -1,9 +1,18 @@
 import React from "react";
 import {connect} from "react-redux";
+import {
+	Redirect
+} from "react-router-dom";
+import Nav from "../Nav";
 
 class QuestionDetails extends React.Component {
     
     render() {
+
+        if(!this.props.authedUser) {
+            return <Redirect to="/" />
+        }
+
         console.log(this.props);
         const question = this.props.questions[this.props.id.params.id];
         let d = new Date(question.timestamp);
@@ -11,6 +20,7 @@ class QuestionDetails extends React.Component {
 
         return(
             <div className="container">
+                <Nav />
                 <div className="row">
                     <div className="col-md-6">                
                         <div className="panel panel-default">
@@ -45,12 +55,13 @@ class QuestionDetails extends React.Component {
     }
 }
 
-function mapStateToProps({questions, loading} , props) {
+function mapStateToProps({questions, loading, authedUser} , props) {
     const id = props.match
     return {
         loading,
         questions,
-        id
+        id,
+        authedUser
         
     }
 };

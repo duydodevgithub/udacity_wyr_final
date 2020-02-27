@@ -2,6 +2,10 @@ import React from 'react';
 import {connect} from "react-redux";
 import {loadUserList} from '../../actions/Share';
 import {_getUsers} from '../../utils/_DATA';
+import Nav from "../Nav";
+import {
+	Redirect
+} from "react-router-dom";
 
 
 class Leaderboard extends React.Component {
@@ -17,15 +21,12 @@ class Leaderboard extends React.Component {
     }
 
     render() {
-        if(this.props.loading === true) {
-            return (
-                <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            )
+        if(!this.props.authedUser) {
+            return <Redirect to="/" />
         }
         return (
             <div className="container">
+                <Nav />
                 <div className="row">
                     <div className="col-md-6">
                         <h1>Leader Board</h1>
@@ -73,10 +74,17 @@ class Leaderboard extends React.Component {
     }
 }
 
-function mapStateToProps({loading, users}) {
+function mapStateToProps({loading, users, authedUser}) {
+    if(authedUser) {
+        return {
+            loading,
+            users: Object.values(users[0]),
+            authedUser
+        }
+    }
     return {
         loading,
-        users: Object.values(users[0])
+        authedUser
     }
 }
 

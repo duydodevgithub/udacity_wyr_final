@@ -4,6 +4,8 @@ import {handleAddQuestion} from "../../actions/Question";
 import {
 	Redirect
 } from "react-router-dom";
+import Nav from "../Nav";
+
 
 import LoadingBar from "react-redux-loading";
 
@@ -50,9 +52,14 @@ class Newquestion extends React.Component {
             return <Redirect to="/" />
         }
 
+        if(!this.props.authedUser) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className="container">
                 <LoadingBar />
+                <Nav />
                 <div className="row">
                     <div className="col-md-6">
                         <h3>Hello {this.props.authedUser}!</h3>

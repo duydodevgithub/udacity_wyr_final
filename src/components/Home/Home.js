@@ -6,6 +6,8 @@ import {
 	Link
 } from "react-router-dom";
 import LoadingBar from "react-redux-loading";
+import Nav from "../Nav";
+import ConnectLogIn from '../Login';
 
 class Home extends React.Component {
 
@@ -34,19 +36,18 @@ class Home extends React.Component {
 
     render() {
 
-        // console.log(this.props);
-
-        if(this.props.loading === true) {
-            return (
-                <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            )
-        }
+        console.log(this.props);
+        if(!this.props.authedUser) {
+			return(
+				<div>
+					<ConnectLogIn />
+				</div>
+			)
+		}
         return(
             <div className="container">
                 <LoadingBar />
-                
+                <Nav />
                 <div className="media">
                     
                     <div className="media-left">
@@ -142,24 +143,32 @@ class Home extends React.Component {
             </div>
         )
     }
+    
 }
 
 function mapStateToProps({loading, authedUser, questions, users}) {
-    const user = users[0][authedUser];
-    const answeredQuestionIdArr = Object.keys(user.answers);
-    const questionIdArr = Object.keys(questions);
+    // console.log(users);
+    if(users && questions && authedUser) {
+        const user = users[0][authedUser];
+        const answeredQuestionIdArr = Object.keys(user.answers);
+        const questionIdArr = Object.keys(questions);
 
-    const unAnsweredQuestionIdArr = questionIdArr.filter(function(obj) { return answeredQuestionIdArr.indexOf(obj) === -1; });
+        const unAnsweredQuestionIdArr = questionIdArr.filter(function(obj) { return answeredQuestionIdArr.indexOf(obj) === -1; });
 
 
-    return {
-        loading,
-        questions,
-        user,
-        answeredQuestionIdArr,
-        unAnsweredQuestionIdArr
-
+        return {
+            loading,
+            questions,
+            user,
+            answeredQuestionIdArr,
+            unAnsweredQuestionIdArr,
+            authedUser
+        }
     }
+    return {
+        loading
+    }
+    
 }
 
 // const ConnectedHome = connect((store) => ({
